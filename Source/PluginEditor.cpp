@@ -13,12 +13,14 @@
 
 //==============================================================================
 LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilterAudioProcessor& p, AudioProcessorValueTreeState& vts)
-    : AudioProcessorEditor (&p), processor (p), treeState(vts)
+    : AudioProcessorEditor (&p), processor (p), treeState(vts) // passed by the processor class when instatiating the editor (see createEditor() in PluginProcessor.cpp)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize (230, 230);
 	
+	// Next we configure some properties for our controls
+
 	// Cutoff Frequency
 	cutoffValue = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(treeState, "cutoff", cutoffDial);
 	cutoffDial.setSliderStyle(Slider::RotaryVerticalDrag);
