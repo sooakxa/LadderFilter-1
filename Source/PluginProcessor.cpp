@@ -21,11 +21,11 @@ LadderFilterAudioProcessor::LadderFilterAudioProcessor()
                       #endif
                        .withOutput ("Output", AudioChannelSet::stereo(), true)
                      #endif
-                       ), treeState(*this, nullptr, Identifier("PARAMETERS"),
+                       ),treeState(*this, nullptr, Identifier("PARAMETERS"),
 						   { std::make_unique<AudioParameterFloat>("cutoff", "Cutoff", 20.0f, 20000.0f, 20000.0f),
 							 std::make_unique<AudioParameterFloat>("resonance", "Resonance", 0.0f, 1.10f, 0.15f),
 							 std::make_unique<AudioParameterFloat>("drive", "Drive", 1.0f, 25.0f, 1.0f),
-							 std::make_unique<AudioParameterChoice>("mode", "Filter Type", StringArray("LPF12", "LPF24", "HPF12", "HPF24"), 0) })
+							 std::make_unique<AudioParameterChoice>("mode", "Filter Type", StringArray("LPF12", "LPF24", "HPF12", "HPF24"), 0) }) // Setup the tree state with initial values, including the parameters
 #endif
 {
 
@@ -108,6 +108,7 @@ void LadderFilterAudioProcessor::changeProgramName (int index, const String& new
 //==============================================================================
 void LadderFilterAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+	// Setup a processor spec to provide some context and info for the filter
 	dsp::ProcessSpec spec;
 
 	spec.sampleRate = sampleRate;
@@ -158,6 +159,7 @@ void LadderFilterAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiB
 	for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
 		buffer.clear(i, 0, buffer.getNumSamples());
 
+	// Process the audio in the buffer using the filter
 	juce::dsp::AudioBlock<float> block(buffer);
 	auto processingContext = dsp::ProcessContextReplacing<float>(block);
 	ladderFilter.process(processingContext);

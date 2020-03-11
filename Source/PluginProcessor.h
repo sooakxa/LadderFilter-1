@@ -16,7 +16,7 @@
 /**
 */
 class LadderFilterAudioProcessor  : public AudioProcessor,
-									public AudioProcessorValueTreeState::Listener
+									public AudioProcessorValueTreeState::Listener // Inherit from the Listener
 {
 public:
     //==============================================================================
@@ -60,7 +60,10 @@ public:
 
 private:
 
+	// Create an instance of the tree state for storing parameters
 	AudioProcessorValueTreeState treeState;
+
+	// Create an instance of the ladder filter from the dsp module
 	dsp::LadderFilter<float> ladderFilter;
 
     //==============================================================================
