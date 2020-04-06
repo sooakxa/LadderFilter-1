@@ -43,12 +43,15 @@ LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilter
 	addAndMakeVisible(&driveDial);
 
 	// Mode Selection
-	modeChoice = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "mode", modeSel);
 	modeSel.addItem("LPF12", 1);
 	modeSel.addItem("LPF24", 2);
 	modeSel.addItem("HPF12", 3);
 	modeSel.addItem("HPF24", 4);
+	modeChoice = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "mode", modeSel);
+
 	addAndMakeVisible(&modeSel);
+
+	
 }
 
 LadderFilterAudioProcessorEditor::~LadderFilterAudioProcessorEditor()
