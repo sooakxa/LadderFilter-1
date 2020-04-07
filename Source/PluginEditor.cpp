@@ -47,7 +47,7 @@ LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilter
 	modeSel.addItem("LPF24", 2);
 	modeSel.addItem("HPF12", 3);
 	modeSel.addItem("HPF24", 4);
-	modeChoice = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "mode", modeSel);
+	modeChoice = std::make_unique<AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "mode", modeSel);// it’s important to add the options to the combo box in the Editor class before you attach the ComboBoxAttachment like so. the update happens when the attachment is created, and if the combobox has no items it can’t set it appropriately!
 
 	addAndMakeVisible(&modeSel);
 
