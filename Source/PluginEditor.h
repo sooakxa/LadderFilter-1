@@ -1,51 +1,44 @@
 /*
   ==============================================================================
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin editor.
+    This file contains the basic framework code for a JUCE plugin editor.
 
   ==============================================================================
 */
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 #include "PluginProcessor.h"
 
 //==============================================================================
 /**
 */
-class LadderFilterAudioProcessorEditor  : public AudioProcessorEditor
+class LadderFilterAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    LadderFilterAudioProcessorEditor (LadderFilterAudioProcessor&, AudioProcessorValueTreeState&);
-    ~LadderFilterAudioProcessorEditor();
+    LadderFilterAudioProcessorEditor (LadderFilterAudioProcessor&, juce::AudioProcessorValueTreeState&);
+    ~LadderFilterAudioProcessorEditor() override;
 
     //==============================================================================
-    void paint (Graphics&) override;
+    void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
-
-	// Create some controls
-	Slider cutoffDial;
-	Slider resonanceDial;
-	Slider driveDial;
-	ComboBox modeSel;
-
-	// These are for attaching the controls to the value tree
-	std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> cutoffValue;
-	std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> resonanceValue;
-	std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> driveValue;
-	std::unique_ptr <AudioProcessorValueTreeState::ComboBoxAttachment> modeChoice;
-
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    LadderFilterAudioProcessor& processor;
+    LadderFilterAudioProcessor& audioProcessor;
+    juce::AudioProcessorValueTreeState& treeState;
 
-	// We store a reference to the processor class' value tree
-	AudioProcessorValueTreeState& treeState;
+    juce::Slider cutoffDial;
+    juce::Slider resonanceDial;
+    juce::Slider driveDial;
+    juce::ComboBox modeSel;
+
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> cutoffValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> resonanceValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> driveValue;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::ComboBoxAttachment> modeChoice;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LadderFilterAudioProcessorEditor)
 };

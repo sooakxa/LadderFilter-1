@@ -1,27 +1,25 @@
 /*
   ==============================================================================
 
-    This file was auto-generated!
-
-    It contains the basic framework code for a JUCE plugin processor.
+    This file contains the basic framework code for a JUCE plugin processor.
 
   ==============================================================================
 */
 
 #pragma once
 
-#include "../JuceLibraryCode/JuceHeader.h"
+#include <JuceHeader.h>
 
 //==============================================================================
 /**
 */
-class LadderFilterAudioProcessor  : public AudioProcessor,
-									public AudioProcessorValueTreeState::Listener // Inherit from the Listener
+class LadderFilterAudioProcessor  : public juce::AudioProcessor,
+                                    public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
     LadderFilterAudioProcessor();
-    ~LadderFilterAudioProcessor();
+    ~LadderFilterAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -31,14 +29,14 @@ public:
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
    #endif
 
-    void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
+    void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor() override;
+    juce::AudioProcessorEditor* createEditor() override;
     bool hasEditor() const override;
 
     //==============================================================================
-    const String getName() const override;
+    const juce::String getName() const override;
 
     bool acceptsMidi() const override;
     bool producesMidi() const override;
@@ -49,23 +47,19 @@ public:
     int getNumPrograms() override;
     int getCurrentProgram() override;
     void setCurrentProgram (int index) override;
-    const String getProgramName (int index) override;
-    void changeProgramName (int index, const String& newName) override;
+    const juce::String getProgramName (int index) override;
+    void changeProgramName (int index, const juce::String& newName) override;
 
     //==============================================================================
-    void getStateInformation (MemoryBlock& destData) override;
+    void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-	void parameterChanged(const String& parameterID, float newValue) override;
+    void parameterChanged(const juce::String& parameterID, float newValue) override;
 
 private:
 
-	// Create an instance of the tree state for storing parameters
-	AudioProcessorValueTreeState treeState;
-
-	// Create an instance of the ladder filter from the dsp module
-	dsp::LadderFilter<float> ladderFilter;
-
+    juce::AudioProcessorValueTreeState treeState;
+    juce::dsp::LadderFilter<float> ladderFilter;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LadderFilterAudioProcessor)
 };
