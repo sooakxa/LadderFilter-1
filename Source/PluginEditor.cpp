@@ -48,6 +48,7 @@ LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilter
     modeChoice = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(treeState, "mode", modeSel);
     addAndMakeVisible(&modeSel);
 
+    enabled.setColour(juce::ToggleButton::ColourIds::textColourId, juce::Colours::black);
     enabled.setButtonText("Set Enabled?");
     enabledToggle = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(treeState, "enabled", enabled);
     addAndMakeVisible(&enabled);
@@ -82,5 +83,5 @@ void LadderFilterAudioProcessorEditor::resized()
     resonanceDial.setBounds(120, 40, 100, 100);
     driveDial.setBounds(10, 130, 100, 100);
     modeSel.setBounds(127.5, 169.5, 75, 25);
-    enabled.setBounds(10, 240, 75, 75);
+    enabled.setBounds(10, 220, 100, 100);
 }
