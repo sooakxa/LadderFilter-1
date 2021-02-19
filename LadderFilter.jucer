@@ -3,6 +3,9 @@
 <JUCERPROJECT id="jMRRbZ" name="LadderFilter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
   <MAINGROUP id="HooSdq" name="LadderFilter">
+    <GROUP id="{4E9DEC7C-845A-5D08-6D73-C2C142765D03}" name="Resources">
+      <FILE id="VtQv95" name="bg.png" compile="0" resource="1" file="../../../Desktop/bg.png"/>
+    </GROUP>
     <GROUP id="{23C0A8EA-EE06-1984-2617-17E24E3BCE0B}" name="Source">
       <FILE id="FMeyIY" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
