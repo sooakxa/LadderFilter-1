@@ -23,13 +23,14 @@ LadderFilterAudioProcessor::LadderFilterAudioProcessor()
                            { std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", 20.0f, 20000.0f, 20000.0f),
                              std::make_unique<juce::AudioParameterFloat>("resonance", "Resonance", 0.0f, 1.10f, 0.15f),
                              std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 1.0f, 25.0f, 1.0f),
-                             std::make_unique<juce::AudioParameterChoice>("mode", "Filter Type", juce::StringArray("LPF12", "LPF24", "HPF12", "HPF24", "BPF12", "BPF24"), 0) })
+                             std::make_unique<juce::AudioParameterChoice>("mode", "Filter Type", juce::StringArray("LPF12", "LPF24", "HPF12", "HPF24", "BPF12", "BPF24"), 0),
+                             std::make_unique<juce::AudioParameterBool>("enabled", "Enable?", false) })
 
 #endif
 {
-    const juce::StringArray params = { "cutoff", "resonance", "drive", "mode" };
+    const juce::StringArray params = { "cutoff", "resonance", "drive", "mode", "enabled" };
 
-    for (int i = 0; i <= 3; ++i)
+    for (int i = 0; i <= 4; ++i)
     {
         // adds a listener to each parameter in the array.
         treeState.addParameterListener(params[i], this);
@@ -211,6 +212,9 @@ void LadderFilterAudioProcessor::parameterChanged(const juce::String& parameterI
 
     else if (parameterID == "drive")
         ladderFilter.setDrive(newValue);
+
+    else if (parameterID == "enabled")
+        ladderFilter.setEnabled(newValue);
 
     else if (parameterID == "mode")
     {

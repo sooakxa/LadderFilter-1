@@ -34,11 +34,13 @@ private:
     juce::Slider resonanceDial;
     juce::Slider driveDial;
     juce::ComboBox modeSel;
+    juce::ToggleButton enabled;
 
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> cutoffValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> resonanceValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> driveValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::ComboBoxAttachment> modeChoice;
+    std::unique_ptr <juce::AudioProcessorValueTreeState::ButtonAttachment> enabledToggle;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LadderFilterAudioProcessorEditor)
 };
