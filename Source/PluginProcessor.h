@@ -14,7 +14,8 @@
 /**
 */
 class LadderFilterAudioProcessor  : public juce::AudioProcessor,
-                                    public juce::AudioProcessorValueTreeState::Listener
+    public juce::AudioProcessorValueTreeState::Listener
+
 {
 public:
     //==============================================================================
@@ -60,6 +61,7 @@ private:
 
     juce::AudioProcessorValueTreeState treeState;
     juce::dsp::LadderFilter<float> ladderFilter;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LadderFilterAudioProcessor)
 };

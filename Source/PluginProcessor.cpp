@@ -21,9 +21,9 @@ LadderFilterAudioProcessor::LadderFilterAudioProcessor()
                      #endif
                        ), treeState(*this, nullptr, juce::Identifier("PARAMETERS"),
                            { std::make_unique<juce::AudioParameterFloat>("cutoff", "Cutoff", 20.0f, 20000.0f, 20000.0f),
-                             std::make_unique<juce::AudioParameterFloat>("resonance", "Resonance", 0.0f, 1.10f, 0.15f),
-                             std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 1.0f, 25.0f, 1.0f),
-                             std::make_unique<juce::AudioParameterChoice>("mode", "Filter Type", juce::StringArray("LPF12", "LPF24", "HPF12", "HPF24", "BPF12", "BPF24"), 0) })
+                                                        std::make_unique<juce::AudioParameterFloat>("resonance", "Resonance", 0.0f, 1.10f, 0.15f),
+                                                        std::make_unique<juce::AudioParameterFloat>("drive", "Drive", 1.0f, 25.0f, 1.0f),
+                                                        std::make_unique<juce::AudioParameterChoice>("mode", "Filter Type", juce::StringArray("LPF12", "LPF24", "HPF12", "HPF24", "BPF12", "BPF24"), 0) })
 
 #endif
 {
@@ -133,6 +133,8 @@ bool LadderFilterAudioProcessor::isBusesLayoutSupported (const BusesLayout& layo
   #else
     // This is the place where you check if the layout is supported.
     // In this template code we only support mono or stereo.
+    // Some plugin hosts, such as certain GarageBand versions, will only
+    // load plugins that support stereo bus layouts.
     if (layouts.getMainOutputChannelSet() != juce::AudioChannelSet::mono()
      && layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
         return false;
@@ -154,10 +156,14 @@ void LadderFilterAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
- 
+    // In case we have more outputs than inputs, this code clears any output
+    // channels that didn't contain input data, (because these aren't
+    // guaranteed to be empty - they may contain garbage).
+    // This is here to avoid people getting screaming feedback
+    // when they first compile a plugin, but obviously you don't need to keep
+    // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
-
 
     juce::dsp::AudioBlock<float> block(buffer);
     auto processingContext = juce::dsp::ProcessContextReplacing<float>(block);
@@ -200,7 +206,6 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new LadderFilterAudioProcessor();
 }
 
-// Function called when parameter is changed
 void LadderFilterAudioProcessor::parameterChanged(const juce::String& parameterID, float newValue)
 {
     if (parameterID == "cutoff")

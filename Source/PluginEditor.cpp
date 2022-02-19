@@ -18,7 +18,8 @@ LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilter
     setSize(230, 230);
 
     // Cutoff Frequency
-    cutoffValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(treeState, "cutoff", cutoffDial);
+    cutoffValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>
+        (treeState, "cutoff", cutoffDial);
     cutoffDial.setSliderStyle(juce::Slider::RotaryVerticalDrag);
     cutoffDial.setRange(20.0f, 20000.0f, 0.0f);
     cutoffDial.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
@@ -31,12 +32,14 @@ LadderFilterAudioProcessorEditor::LadderFilterAudioProcessorEditor (LadderFilter
     resonanceDial.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
     addAndMakeVisible(&resonanceDial);
 
+
     // Drive
     driveValue = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(treeState, "drive", driveDial);
     driveDial.setSliderStyle(juce::Slider::RotaryVerticalDrag);
     driveDial.setRange(1.0f, 25.0f, 1.0f);
     driveDial.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, true, 0, 0);
     addAndMakeVisible(&driveDial);
+
 
     // Mode Selection
     modeSel.addItem("LPF12", 1);
@@ -80,4 +83,5 @@ void LadderFilterAudioProcessorEditor::resized()
     resonanceDial.setBounds(120, 40, 100, 100);
     driveDial.setBounds(10, 130, 100, 100);
     modeSel.setBounds(127.5, 169.5, 75, 25);
+
 }

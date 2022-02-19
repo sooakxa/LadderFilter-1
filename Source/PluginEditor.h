@@ -25,10 +25,6 @@ public:
     void resized() override;
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
-    LadderFilterAudioProcessor& audioProcessor;
-    juce::AudioProcessorValueTreeState& treeState;
 
     juce::Slider cutoffDial;
     juce::Slider resonanceDial;
@@ -39,6 +35,12 @@ private:
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> resonanceValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::SliderAttachment> driveValue;
     std::unique_ptr <juce::AudioProcessorValueTreeState::ComboBoxAttachment> modeChoice;
+
+
+    // This reference is provided as a quick way for your editor to
+    // access the processor object that created it.
+    LadderFilterAudioProcessor& audioProcessor;
+    juce::AudioProcessorValueTreeState& treeState;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LadderFilterAudioProcessorEditor)
 };
